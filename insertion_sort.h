@@ -2,7 +2,7 @@
 using namespace std;
 
 // write the INSERTION-SORT procedure to sort into monotonically decreasing
-void INSERTIONSort(int *A, int size){
+void InsertionSort(int *A, int size){
     for (int i = 1; i < size; i++)
     {
         int key = A[i];
@@ -17,7 +17,7 @@ void INSERTIONSort(int *A, int size){
 }
 
 // write the INSERTION-SORT procedure to sort into monotonically decreasing instead of monotonically increasing order.
-void INSERTIONSort_rev(int *A, int size)
+void InsertionSort_rev(int *A, int size)
 {
     for (int i = 1; i < 10; i++)
     {
@@ -43,10 +43,10 @@ void display(int *A, int size){
 // {
 //     int A[10] = {23, 56, 78, 24, 3, 64, 75, 22, 64, 67};
     
-//     INSERTIONSort(A, 10);
+//     InsertionSort(A, 10);
 //     display(A,10);
 
-//     INSERTIONSort_rev(A, 10);
+//     InsertionSort_rev(A, 10);
 //     display(A,10);
     
 //     return 0;

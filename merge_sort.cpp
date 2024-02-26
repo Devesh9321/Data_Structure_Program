@@ -1,9 +1,12 @@
+
 #include <iostream>
 #include <cassert>
 #include <time.h>
-#include "insertion_sort.h"
 using namespace std;
 #define maxsize 100000
+
+/*
+  //  Give Merge Sort is using Topdown Approach
 
 void mergeCopy(int *A, int ibeg, int iend, int *B)
 {
@@ -49,6 +52,64 @@ void mergesort(int *A, int *B, int n)
     mergeDivide(A, 0, n, B);
 };
 
+*/
+
+/* Merge Sort Algorithm */
+
+void merge(int *A, int beg, int mid, int end)
+{
+    int lf = mid - beg + 1;
+    int rf = end - mid;
+    int left[lf], right[rf];
+
+    for (int i = 0; i < lf; ++i)
+        left[i] = A[beg + i];
+
+    for (int i = 0; i < lf; ++i)
+        right[i] = A[mid + i + 1];
+
+    int i = 0, j = 0, k = beg;
+
+    while (i < lf && j < rf)
+    {
+        if (left[i] <= right[j])
+        {
+            A[k] = left[i];
+            i++;
+        }
+        else
+        {
+            A[k] = right[j];
+            j++;
+        }
+        k++;
+    }
+
+    for (i; i < lf; i++)
+    {
+        A[k] = left[i];
+        k++;
+    }
+
+    for (j; j < rf; j++)
+    {
+        A[k] = right[j];
+        k++;
+    }
+}
+
+void mergesort(int *A, int beg, int end)
+{
+    if (!(beg >= end))
+    {
+        int mid = (beg + end) / 2;
+        mergesort(A, beg, mid);
+        mergesort(A, mid + 1, end);
+        merge(A, beg, mid, end);
+    }
+}
+
+
 void Dispalay(char *Text, int *A, int n)
 {
     cout << Text;
@@ -58,46 +119,48 @@ void Dispalay(char *Text, int *A, int n)
 
 main()
 {
-    cout<<"* * * Merge Sort Time complexcity * * *"<<endl;
-    cout << "\n| Sorting Algo \t| N \t| Size (Bytes) \t| Size (MB) \t| Time \t\t|";
-    for (int n = 99995; n < maxsize; ++n)
+    int arr[] = {40, 4, 18, 15, 7, 22, 41, 87};
+    cout << "Original : ";
+    for (int i = 0; i < 8; ++i)
     {
-        int A[n];
-        int A1[n];
-        int B[n];
+        cout << arr[i] << " ";
+    }
+    mergesort(arr, 0, 8);
+    cout << "Sorted : ";
+    for (int i = 0; i < 8; ++i)
+    {
+        cout << arr[i] << " ";
+    }
+
+    cout << "\n\n* * * Merge Vs Insertion Sort Time complexcity * * *" << endl;
+    cout << "\n| Algo Sort   \t| N \t| Size (Bytes) \t| Time ";
+    // for (int n = 1; n < maxsize; n+=900)
+    for (int n = 1; n < 10000; n += 450)
+    {
+        int A[n], AI[n];
 
         for (int i = 0; i < n; ++i)
         {
             A[i] = (rand() % maxsize) + 1;
-            A1[i] = A[i];
+            AI[i] = A[i];
         }
 
-        //Merge sort
+        // Merge sort
         clock_t start_m = clock();
-        mergesort(A, B, n);
+        mergesort(A, 0, n);
         clock_t end_m = clock();
-        
-        //insertion sort
-        clock_t start_i = clock();
-        INSERTIONSort(A1, n);
-        clock_t end_i = clock();
-        // Dispalay("\nSorted : ",A1,n);
-
-
-        long double time_required_m = (long double)(end_m - start_m) / CLOCKS_PER_SEC;
-        long double time_required_i = (long double)(end_i - start_i) / CLOCKS_PER_SEC;
+        long double time_required_m = (long double)(end_m - start_m);
         long double size_byte = sizeof(A);
-        long double size_mb = size_byte / 1048576;
-        cout << "\n| Merge Sort \t| " << n << " \t| " << size_byte << " \t| " << size_mb << " \t| " << time_required_m;
-        cout << "\n| insert Sort \t| " << n << " \t| " << size_byte << " \t| " << size_mb << " \t| " << time_required_i;
+        cout << "\n| Merge Sort  \t| " << n << " \t| " << size_byte << " \t| " << time_required_m;
+
         free(A);
-        free(B);
+        free(AI);
     }
 
     return 0;
 }
 
-// Output 
+// Output
 // | Sorting Algo  | N     | Size (Bytes)  | Size (MB)     | Time          |
 // | Merge Sort    | 99995         | 399980        | 0.381451      | 0.013
 // | insert Sort   | 99995         | 399980        | 0.381451      | 5.814
