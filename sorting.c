@@ -89,7 +89,6 @@ void Bucket_Sort(int *data, int size)
     }
     // printf("\n Length Number : %d ", len);
 
-
     for (int i = 0; i < len; i++)
     {
         reset_packet(Packet, size);
@@ -117,14 +116,7 @@ void Bucket_Sort(int *data, int size)
 
 void Quick_sort(int *data, int size)
 {
-    int pivot= data[0];
-    while (true)
-    {
-        
-    }
-    
-    
-
+    int pivot = data[0];
 }
 
 int main()
@@ -145,8 +137,7 @@ int main()
     // Bucket_Sort(data, 10);
 
     // Quick Sort
-    
- 
+
     display("\nSorted : ", data, 10);
     return 0;
 }
